@@ -1,4 +1,26 @@
-   node_modules/
-   .env
-   .DS_Store
-   *.log
+# Dependencies (can be reinstalled)
+node_modules/
+
+# Environment variables (should be set locally)
+.env
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
