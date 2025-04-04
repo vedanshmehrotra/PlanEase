@@ -1,0 +1,238 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: #1a1b26;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.title {
+    font-size: 3.5em;
+    font-weight: bold;
+    margin-bottom: 40px;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.box {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    width: 400px;
+    z-index: 2;
+}
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.options button {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: white;
+    background: #525af2;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    transition: background 0.6s;
+    font-size: 1.2em;
+    border: none;
+    cursor: pointer;
+}
+.options button:hover {
+    background: #6F63B6;
+    transition: 0.4s ease-in;
+}
+.description {
+    margin-top: 25px;
+    font-size: 1.2em;
+    opacity: 0.8;
+}
+.container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1  ;
+}
+
+  /* Dot Grid */
+  .dot-grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba(82, 90, 242, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.3;
+  }
+
+  /* Waves */
+  .wave {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+  }
+
+  .wave1 {
+    background: linear-gradient(to bottom, transparent, rgba(82, 90, 242, 0.1));
+    transform: skewY(-5deg);
+    top: 40%;
+  }
+
+  .wave2 {
+    background: linear-gradient(to bottom, transparent, rgba(82, 90, 242, 0.15));
+    transform: skewY(-8deg);
+    top: 60%;
+  }
+
+  .wave3 {
+    background: linear-gradient(to right, transparent, rgba(82, 90, 242, 0.1));
+    transform: skewY(3deg);
+    top: 20%;
+  }
+
+  /* Shapes */
+  .shape {
+    position: absolute;
+    border: 2px solid rgba(82, 90, 242, 0.3);
+  }
+
+  /* Circles */
+  .circle {
+    border-radius: 50%;
+  }
+
+  .circle1 {
+    width: 100px;
+    height: 100px;
+    top: 10%;
+    left: 10%;
+  }
+
+  .circle2 {
+    width: 80px;
+    height: 80px;
+    bottom: 15%;
+    right: 10%;
+  }
+
+  .circle3 {
+    width: 40px;
+    height: 40px;
+    top: 30%;
+    right: 30%;
+  }
+
+  .circle4 {
+    width: 60px;
+    height: 60px;
+    bottom: 25%;
+    left: 25%;
+  }
+
+  /* Triangles */
+  .triangle {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
+  .triangle1 {
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 86.6px solid rgba(82, 90, 242, 0.1);
+    top: 20%;
+    right: 15%;
+  }
+
+  .triangle2 {
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 52px solid rgba(82, 90, 242, 0.1);
+    bottom: 30%;
+    left: 15%;
+  }
+
+  .triangle3 {
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 69.3px solid rgba(82, 90, 242, 0.1);
+    top: 40%;
+    left: 40%;
+  }
+
+  /* Squares */
+  .square {
+    position: absolute;
+    border: 2px solid rgba(82, 90, 242, 0.3);
+  }
+
+  .square1 {
+    width: 20px;
+    height: 20px;
+    top: 25%;
+    left: 20%;
+  }
+
+  .square2 {
+    width: 30px;
+    height: 30px;
+    bottom: 25%;
+    right: 20%;
+  }
+
+  .square3 {
+    width: 15px;
+    height: 15px;
+    top: 60%;
+    right: 40%;
+  }
+
+  .square4 {
+    width: 25px;
+    height: 25px;
+    bottom: 40%;
+    left: 35%;
+  }
+
+  /* Lines */
+  .line {
+    position: absolute;
+    background: rgba(82, 90, 242, 0.2);
+    height: 1px;
+    transform-origin: left;
+  }
+
+  .line1 {
+    width: 150px;
+    top: 15%;
+    left: 30%;
+    transform: rotate(45deg);
+  }
+
+  .line2 {
+    width: 200px;
+    bottom: 20%;
+    right: 25%;
+    transform: rotate(-30deg);
+  }
+
+  .line3 {
+    width: 100px;
+    top: 45%;
+    right: 15%;
+    transform: rotate(15deg);
+  }
+

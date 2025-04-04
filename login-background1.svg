@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <!-- Enhanced gradients -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#2d2d44"/>
+    </linearGradient>
+    
+    <!-- Animated gradient for accents -->
+    <linearGradient id="accent-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6c63ff"/>
+      <stop offset="100%" style="stop-color:#8B7FFF"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Base background -->
+  <rect width="100%" height="100%" fill="url(#bg-gradient)"/>
+  
+  <!-- Vibrant geometric elements -->
+  <!-- Floating circles -->
+  <circle cx="200" cy="400" r="100" fill="none" stroke="url(#accent-gradient)" stroke-width="3" opacity="0.3"/>
+  <circle cx="1720" cy="880" r="80" fill="none" stroke="#6c63ff" stroke-width="3" opacity="0.4"/>
+  <circle cx="1800" cy="350" r="40" fill="#6c63ff" opacity="0.15"/>
+  
+  <!-- Abstract shapes -->
+  <path d="M100 600 L300 600 L200 800 Z" fill="none" stroke="#8B7FFF" stroke-width="2" opacity="0.2"/>
+  <path d="M1600 400 L1800 400 L1700 600 Z" fill="none" stroke="#6c63ff" stroke-width="2" opacity="0.2"/>
+  
+  <!-- Flowing curves -->
+  <path d="M-100 800 Q 500 700 960 800 T 2000 800" 
+        fill="none" 
+        stroke="#6c63ff" 
+        stroke-width="3"
+        opacity="0.3"/>
+  <path d="M-100 600 Q 500 500 960 600 T 2000 600" 
+        fill="none" 
+        stroke="#8B7FFF" 
+        stroke-width="3"
+        opacity="0.2"/>
+        
+  <!-- Dots pattern -->
+  <g opacity="0.2">
+    <circle cx="300" cy="500" r="2" fill="#6c63ff"/>
+    <circle cx="320" cy="500" r="2" fill="#6c63ff"/>
+    <circle cx="340" cy="500" r="2" fill="#8B7FFF"/>
+    <circle cx="1600" cy="800" r="2" fill="#6c63ff"/>
+    <circle cx="1620" cy="800" r="2" fill="#6c63ff"/>
+    <circle cx="1640" cy="800" r="2" fill="#8B7FFF"/>
+  </g>
+  
+  <!-- Enhanced squares -->
+  <rect x="100" y="700" width="40" height="40" fill="none" stroke="#6c63ff" stroke-width="3" opacity="0.3"/>
+  <rect x="1800" y="500" width="30" height="30" fill="none" stroke="#8B7FFF" stroke-width="3" opacity="0.3"/>
+  
+  <!-- Company name adjusted -->
+  <text x="50%" y="20%" 
+        text-anchor="middle" 
+        dominant-baseline="middle"
+        font-family="Arial Black, sans-serif" 
+        font-size="140" 
+        style="letter-spacing: 0px;">
+    <tspan fill="#6c63ff" opacity="0.9">Plan</tspan>
+    <tspan fill="#8B7FFF" opacity="0.9">EASE</tspan>
+  </text>
+  
+  <!-- Additional decorative elements -->
+  <g transform="translate(960, 640)">
+    <circle cx="0" cy="0" r="200" fill="none" stroke="#6c63ff" stroke-width="1" opacity="0.1"/>
+    <circle cx="0" cy="0" r="150" fill="none" stroke="#8B7FFF" stroke-width="1" opacity="0.1"/>
+    <circle cx="0" cy="0" r="100" fill="none" stroke="#6c63ff" stroke-width="1" opacity="0.1"/>
+  </g>
+  
+  <!-- Corner accents -->
+  <path d="M50 250 L150 250 L150 350" fill="none" stroke="#6c63ff" stroke-width="3" opacity="0.3"/>
+  <path d="M1870 930 L1770 930 L1770 830" fill="none" stroke="#8B7FFF" stroke-width="3" opacity="0.3"/>
+</svg>

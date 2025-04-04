@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(login-background1.svg) no-repeat;
+    background-size: cover ;
+    background-position:center ;
+}
+
+.wrapper{
+    width: 420px;
+    background: transparent ;
+    border: 2px solid #C0C0C0;
+    backdrop-filter: blur(10px);
+    color:#6C9EDF;
+    border-radius: 10px;
+    padding: 30px 40px;
+}
+
+.wrapper h1{
+    font-size: 36px;
+    text-align: center;
+}
+
+.wrapper .input-box{
+    position: relative;
+    width: 100%;    
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid #A8C9E2;
+    border-radius: 40px;
+    font-size: 16px;
+    color: #6D6D6D;
+    padding: 20px 45px 20px 20px;
+}
+
+.input-box input::placeholder {
+    color: #6D6D6D;
+}
+
+.input-box i{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px ;
+}
+
+.wrapper .rememberpassword{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+
+.rememberpassword label input{
+    accent-color: #fff;
+    margin-right: 3px;
+}
+
+.rememberpassword a{
+    color: #8A7FCF;
+    text-decoration: none;
+}
+
+.rememberpassword a:hover{
+    text-decoration: underline;
+    color: #6F63B6;
+    
+}
+
+.wrapper .btn{
+    width: 100%;
+    height: 45px;
+    background-color: #6C9EDF;
+    border: none;
+    outline: none;
+    border-radius: 40px ;
+    box-shadow: 0 0 10px rgba(0 0 0 .1);
+    cursor:pointer;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+}
+.wrapper .btn:hover{
+    background-color: #6F63B6;
+    transition: 0.4s;
+}
+
+.wrapper .registeracc{
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px
+}
+
+.registeracc p a{
+    color: #8A7FCF;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.registeracc p a:hover{
+    text-decoration: underline;
+    color: #6F63B6;
+}

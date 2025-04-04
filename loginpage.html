@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="loginpage.css" />
+    <link rel="stylesheet" href="homepage-new.css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="animated-background.css" />
+</head>
+<body>
+    <div class="bg-container">
+        <div class="dot-grid"></div>
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="shape circle circle1"></div>
+        <div class="shape circle circle2"></div>
+        <div class="shape circle circle3"></div>
+        <div class="shape circle circle4"></div>
+        <div class="shape triangle triangle1"></div>
+        <div class="shape triangle triangle2"></div>
+        <div class="shape triangle triangle3"></div>
+        <div class="shape square square1"></div>
+        <div class="shape square square2"></div>
+        <div class="shape square square3"></div>
+        <div class="shape square square4"></div>
+        <div class="shape line line1"></div>
+        <div class="shape line line2"></div>
+        <div class="shape line line3"></div>
+    </div>
+
+    <div class="wrapper">
+        <form id="login-form">
+            <h1>Login</h1>
+            <div class="input-box">
+                <input type="text" id="username" name="username" placeholder="Enter username" required />
+                <i class='bx bx-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="password" id="password" name="password" placeholder="Enter password" required />
+                <i class='bx bx-lock-alt'></i>
+            </div>
+            <div class="rememberpassword">
+                <label><input type="checkbox">Remember me</label>
+                <a href="#">Forget password</a>
+            </div>
+            <button type="submit" class="btn">Login</button>
+            <div class="registeracc">
+                <p>Don't have an account already? <a href="register.html">Register</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script type="module">
+        import { setToken } from './js/auth.js';
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/users/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (response.status === 404) {
+                    // User does not exist
+                    alert('User does not exist. Please register first.');
+                    return;
+                }
+
+                if (!response.ok) {
+                    throw new Error('Failed to log in');
+                }
+
+                const data = await response.json();
+                setToken(data.token); // Use our auth utility to set the token
+                alert('Login successful!');
+                window.location.href = 'homepage.html'; // Redirect to homepage
+            } catch (error) {
+                console.error('Error logging in:', error);
+                alert('Failed to log in. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlanEase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="register.css" />
+    <link rel="stylesheet" href="animated-background.css" />
+</head>
+<body class="bg-[#121224] min-h-screen">
+    <div class="bg-container">
+        <div class="dot-grid"></div>
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="shape circle circle1"></div>
+        <div class="shape circle circle2"></div>
+        <div class="shape circle circle3"></div>
+        <div class="shape circle circle4"></div>
+        <div class="shape triangle triangle1"></div>
+        <div class="shape triangle triangle2"></div>
+        <div class="shape triangle triangle3"></div>
+        <div class="shape square square1"></div>
+        <div class="shape square square2"></div>
+        <div class="shape square square3"></div>
+        <div class="shape square square4"></div>
+        <div class="shape line line1"></div>
+        <div class="shape line line2"></div>
+        <div class="shape line line3"></div>
+    </div>
+
+    <div class="absolute inset-0 flex items-center justify-center -top-[70%]">
+        <h1 class="text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-600">
+            PlanEase
+        </h1>
+    </div>
+
+    <div class="register-body">
+        <div class="wrapper">
+            <form id="registerForm">
+                <h1>Register User</h1>
+                <div class="input-box">
+                    <input type="text" id="username" placeholder="Username" required />
+                    <i class='bx bx-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="email" id="email" placeholder="Email ID" required />
+                    <i class='bx bx-envelope'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="password" placeholder="Password" required />
+                    <i class='bx bx-lock-alt'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+                    <i class='bx bx-lock-alt'></i>
+                </div>
+                <p id="error-message" style="color: #5D3FD3; display: none;"></p>
+                <button type="submit" class="btn" id="registerBtn">Register</button>
+                <div class="registeracc">
+                    <p>Already have an account? <a href="loginpage.html">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorMessage = document.getElementById('error-message');
+            
+            emailregex=/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/; 
+            if(!email.match(emailregex)){
+                errorMessage.textContent = "Invalid Email ID.";
+                errorMessage.style.display= 'block';
+                return;
+            }
+            if (password !== confirmPassword) {
+                errorMessage.textContent = "Passwords do not match.";
+                errorMessage.style.display = "block";
+                return;
+            }
+
+            if (password.length < 6) {
+                errorMessage.textContent = "Password must be at least 6 characters.";
+                errorMessage.style.display = "block";
+                return;
+            }
+
+            errorMessage.style.display = "none";
+
+            try {
+                const response = await fetch('http://localhost:5000/api/users/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message);
+                }
+
+                alert('User registered successfully!');
+                window.location.href = 'loginpage.html';
+            } catch (error) {
+                errorMessage.textContent = error.message;
+                errorMessage.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>
