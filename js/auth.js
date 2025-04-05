@@ -1,36 +1,27 @@
 // Store token in localStorage
 const setToken = (token) => {
     localStorage.setItem('token', token);
-    console.log('Token set successfully');
 };
 
 // Get token from localStorage
 const getToken = () => {
-    const token = localStorage.getItem('token');
-    console.log('Token retrieved:', token ? 'exists' : 'not found');
-    return token;
+    return localStorage.getItem('token');
 };
 
 // Remove token from localStorage
 const removeToken = () => {
     localStorage.removeItem('token');
-    console.log('Token removed');
 };
 
 // Get user ID from token
 const getUserIdFromToken = () => {
     const token = getToken();
-    if (!token) {
-        console.log('No token found');
-        return null;
-    }
+    if (!token) return null;
     
     try {
         const payload = JSON.parse(atob(token.split('.')[1]));
-        console.log('User ID from token:', payload.userId);
-        return payload.userId;
+        return payload.id;
     } catch (error) {
-        console.error('Error parsing token:', error);
         return null;
     }
 };

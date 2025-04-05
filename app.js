@@ -154,18 +154,16 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const path = require('path');
+require('dotenv').config();
 const app = express();
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/PlanEaseDB', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}).then(() => console.log('MongoDB connected')).catch(err => console.log(err));
+}).then(() => console.log('MongoDB connected')).catch(err => console.error('MongoDB connection error:', err));
 
-// Importing Models
-// const User = require('./backend/models/User');/
-
-// // User Schema
+// User Schema
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true }
@@ -202,7 +200,6 @@ app.post('/api/users/register', async (req, res) => {
 });
 
 // Login API
-// filepath: d:\Front-End Development Course Programs(Udemy)\FS Project 2025\app.js
 app.post('/api/users/login', async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -212,18 +209,17 @@ app.post('/api/users/login', async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) return res.status(400).json({ message: 'Invalid username or password' });
 
-    // Generate a token
-    const token = jwt.sign({ id: user._id }, 'secretkey', { expiresIn: '1h' });
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN }
+    );
 
-    // Return the token in the response
     res.status(200).json({ message: 'Login successful', token });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
-const user = await User.findOne({ username });
-const isPasswordValid = await bcrypt.compare(password, user.password);
-
 
 // Note API
 app.post('/api/notes', async (req, res) => {
@@ -240,7 +236,6 @@ app.post('/api/notes', async (req, res) => {
   }
 });
 
-
 // Task API
 app.post('/api/tasks', async (req, res) => {
   const { userId, title, tag, priority, details } = req.body;
@@ -256,6 +251,8 @@ app.post('/api/tasks', async (req, res) => {
   }
 });
 
-
 // Start Server
-app.listen(5000, () => console.log('Server running on http://localhost:5000'));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
