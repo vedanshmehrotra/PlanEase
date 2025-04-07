@@ -34,7 +34,7 @@ router.post('/register', async (req, res) => {
 // Login
 router.post('/login', async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, password, rememberMe } = req.body;
         const user = await User.findOne({ username });
         
         if (!user) {
@@ -46,7 +46,10 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid password' });
         }
 
-        const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '24h' });
+        // Set token expiration based on remember me
+        const expiresIn = rememberMe ? '30d' : '24h'; // 30 days for remember me, 24 hours for session
+        const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn });
+        
         res.json({ token });
     } catch (err) {
         console.error('Error logging in:', err);

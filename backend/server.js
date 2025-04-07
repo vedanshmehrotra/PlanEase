@@ -34,7 +34,7 @@ mongoose.connect('mongodb://localhost:27017/PlanEaseDB', {
 
 // Root route to serve the about page
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../aboutpage.html'));
+    res.sendFile(path.join(__dirname, '../index.html'));
 });
 
 // Handle favicon.ico requests

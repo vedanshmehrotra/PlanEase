@@ -1,15 +1,23 @@
 // Store token in localStorage
-const setToken = (token) => {
-    localStorage.setItem('token', token);
+const setToken = (token, rememberMe = false) => {
+    if (rememberMe) {
+        // Store token in localStorage for persistent login
+        localStorage.setItem('token', token);
+    } else {
+        // Store token in sessionStorage for session-based login
+        sessionStorage.setItem('token', token);
+    }
 };
 
-// Get token from localStorage
+// Get token from storage
 const getToken = () => {
-    return localStorage.getItem('token');
+    // First check sessionStorage, then localStorage
+    return sessionStorage.getItem('token') || localStorage.getItem('token');
 };
 
-// Remove token from localStorage
+// Remove token from storage
 const removeToken = () => {
+    sessionStorage.removeItem('token');
     localStorage.removeItem('token');
 };
 
