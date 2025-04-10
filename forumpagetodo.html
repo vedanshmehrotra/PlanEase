@@ -146,12 +146,18 @@
         e.preventDefault();
 
         const taskData = {
-            title: document.getElementById('title').value,
+            title: document.getElementById('title').value.trim(),
             category: document.getElementById('category').value,
             tag: document.getElementById('tag').value,
             priority: document.getElementById('priority').value,
-            details: document.getElementById('details').value
+            details: document.getElementById('details').value.trim()
         };
+
+        // Validate title
+        if (!taskData.title) {
+            alert('Please enter a task title');
+            return;
+        }
 
         try {
             let response;
@@ -160,27 +166,28 @@
                 console.log('Updating task:', taskId);
                 response = await fetch(`http://localhost:5000/api/tasks/${taskId}`, {
                     method: 'PUT',
-                    headers: getAuthHeaders(),
+                    headers: {
+                        ...getAuthHeaders(),
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify(taskData)
                 });
-
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
-                    throw new Error(errorData.error || `Failed to update task: ${response.status}`);
-                }
             } else {
                 // Create new task
                 console.log('Creating new task');
                 response = await fetch('http://localhost:5000/api/tasks', {
                     method: 'POST',
-                    headers: getAuthHeaders(),
+                    headers: {
+                        ...getAuthHeaders(),
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify(taskData)
                 });
+            }
 
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
-                    throw new Error(errorData.error || `Failed to create task: ${response.status}`);
-                }
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Failed to save task');
             }
 
             // Show success message
@@ -219,7 +226,12 @@
         const container = document.getElementById('tasksContainer');
         container.innerHTML = '';
         
-        tasks.forEach(task => {
+        // Separate completed and active tasks
+        const completedTasks = tasks.filter(task => task.completed);
+        const activeTasks = tasks.filter(task => !task.completed);
+
+        // Display active tasks first
+        activeTasks.forEach(task => {
             const taskElement = document.createElement('div');
             taskElement.className = 'task-item';
             taskElement.innerHTML = `
@@ -246,6 +258,35 @@
 
             container.appendChild(taskElement);
         });
+
+        // Display completed tasks section if there are any
+        if (completedTasks.length > 0) {
+            const completedSection = document.createElement('div');
+            completedSection.className = 'completed-tasks-section';
+            completedSection.innerHTML = `
+                <h3>Completed Tasks</h3>
+                <div class="completed-tasks-list">
+                    ${completedTasks.map(task => `
+                        <div class="task-item completed">
+                            <div class="task-content">
+                                <input type="checkbox" class="task-checkbox" checked>
+                                <div class="task-details">
+                                    <h3 class="completed">${task.title}</h3>
+                                    ${task.category ? `<span class="task-category">${task.category}</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(completedSection);
+        }
+
+        // Update task count (only count active tasks)
+        const taskCountElement = document.querySelector('.task-count');
+        if (taskCountElement) {
+            taskCountElement.textContent = activeTasks.length;
+        }
     }
 
     // Function to update task status
@@ -253,7 +294,10 @@
         try {
             const response = await fetch(`http://localhost:5000/api/tasks/${taskId}`, {
                 method: 'PUT',
-                headers: getAuthHeaders(),
+                headers: {
+                    ...getAuthHeaders(),
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({ completed })
             });
 
@@ -261,6 +305,7 @@
                 throw new Error('Failed to update task status');
             }
 
+            // Reload tasks to reflect the changes
             loadTasks();
         } catch (error) {
             console.error('Error updating task status:', error);

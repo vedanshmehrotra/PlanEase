@@ -417,3 +417,40 @@ textarea:focus {
 textarea::placeholder {
   color: #6b7280;
 }
+
+/* Completed Tasks Section */
+.completed-tasks-section {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #3a3b4a;
+}
+
+.completed-tasks-section h3 {
+    color: #a0aec0;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.completed-tasks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.task-item.completed {
+    opacity: 0.7;
+    background: #2a2b38;
+}
+
+.task-item.completed .task-details h3 {
+    text-decoration: line-through;
+    color: #a0aec0;
+}
+
+.task-item.completed .task-checkbox {
+    cursor: not-allowed;
+}
+
+.task-item.completed .task-category {
+    opacity: 0.7;
+}

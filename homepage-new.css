@@ -113,14 +113,17 @@ body {
     font-size: 48px;
     font-weight: 800;
     margin-bottom: 20px;
+    text-align: center; 
 }
 
 .tab-content {
     font-size: 18px;
     padding: 15px;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
     margin-top: 10px;
+    position: relative;
+    z-index: 1;
 }
 
 .hidden {
@@ -129,16 +132,20 @@ body {
 
 .dashboard {
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
+    border-radius: 0 0 15px 15px;
     padding: 20px;
     margin-bottom: 30px;
-    backdrop-filter: blur(10px);
+    
+    position: relative;
+    z-index: 0;
+    margin-top: -1px;
 }
 
 .dashboard-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    backdrop-filter: blur(10px);
     margin-top: 20px;
 }
 
@@ -148,6 +155,7 @@ body {
     padding: 20px;
     display: flex;
     align-items: center;
+    backdrop-filter: blur(10px);
     gap: 15px;
     transition: transform 0.2s, background 0.2s;
 }
@@ -196,59 +204,222 @@ body {
 }
 
 .task-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    margin: 5px 0;
-    background-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-    position: relative;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
 }
 
-.task-item:hover {
-    background-color: rgba(255, 255, 255, 0.4);
+.task-item.completed {
+    opacity: 0.7;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.task-item.completed .task-title {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.task-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .task-checkbox {
-    margin-right: 10px;
+    position: relative;
+    width: 24px;
+    height: 24px;
+}
+
+.task-checkbox input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
     cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.task-checkbox label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #525af2;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.task-checkbox label:after {
+    content: '';
+    position: absolute;
+    display: none;
+    left: 8px;
+    top: 4px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.task-checkbox input[type="checkbox"]:checked + label {
+    background: #525af2;
+}
+
+.task-checkbox input[type="checkbox"]:checked + label:after {
+    display: block;
+}
+
+.task-checkbox label:hover {
+    background: rgba(82, 90, 242, 0.2);
+}
+
+.task-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .task-title {
-    flex-grow: 1;
+    font-weight: 600;
+    color: #fff;
 }
 
-.task-edit {
-    visibility: hidden;
-    margin-left: 10px;
-    opacity: 0.7;
-    transition: 0.3s;
+.task-category {
+    font-size: 0.9rem;
+    color: #888;
 }
 
-.task-item:hover .task-edit {
-    visibility: visible;
+.task-priority {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
 }
 
-.task-edit:hover {
+.task-priority.high {
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+}
+
+.task-priority.medium {
+    color: #ffbb33;
+    background: rgba(255, 187, 51, 0.1);
+}
+
+.task-priority.low {
+    color: #00C851;
+    background: rgba(0, 200, 81, 0.1);
+}
+
+.task-actions {
+    display: flex;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.task-item:hover .task-actions {
     opacity: 1;
 }
 
-.completed-tasks ul {
+.edit-btn, .delete-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.edit-btn:hover {
+    background: rgba(82, 90, 242, 0.2);
+    color: #525af2;
+}
+
+.delete-btn:hover {
+    background: rgba(255, 68, 68, 0.2);
+    color: #ff4444;
+}
+
+.completed-tasks {
+    margin-top: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.completed-tasks h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+#completed-tasks-list {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .completed-task {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    margin: 5px 0;
-    background-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
     border-radius: 8px;
+    padding: 0.7rem 1rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.completed-task .task-content.simple {
+    display: block;
+    padding: 0;
+}
+
+.completed-task .task-title {
     text-decoration: line-through;
     color: rgba(255, 255, 255, 0.6);
+    font-size: 0.95rem;
+}
+
+.completed-task .task-category {
+    opacity: 0.6;
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+#completed-slidebar {
+    text-align: center;
+    margin-top: 0.5rem;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-size: 0.8rem;
+}
+
+#completed-slidebar:hover {
+    color: #fff;
+}
+
+/* Remove the previous scrollable styles */
+.completed-tasks::-webkit-scrollbar,
+.completed-tasks::-webkit-scrollbar-track,
+.completed-tasks::-webkit-scrollbar-thumb,
+.completed-tasks::-webkit-scrollbar-thumb:hover {
+    display: none;
+}
+
+.completed-tasks.show,
+.completed-tasks:not(.show),
+.completed-tasks:not(.show) #completed-tasks-list {
+    max-height: none !important;
+    overflow: visible !important;
 }
 
 .task-details {
@@ -326,6 +497,7 @@ button:hover {
 .task-content, .note-content {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 15px;
 }
 
@@ -339,15 +511,12 @@ button:hover {
 .task-title, .note-title {
     font-weight: 600;
     color: #fff;
+    margin-bottom: 5px;
 }
 
-.task-category {
+.task-category, .note-description {
     font-size: 0.9em;
     color: rgba(255, 255, 255, 0.7);
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2px 8px;
-    border-radius: 12px;
-    display: inline-block;
 }
 
 .task-priority {
@@ -355,6 +524,7 @@ button:hover {
     padding: 2px 8px;
     border-radius: 12px;
     display: inline-block;
+    margin-top: 5px;
 }
 
 .task-priority.high {
@@ -372,43 +542,58 @@ button:hover {
     color: #32cd32;
 }
 
-.note-description {
-    font-size: 0.9em;
-    color: rgba(255, 255, 255, 0.7);
-}
-
 .note-alarm {
     font-size: 0.8em;
     color: #ffd700;
     display: flex;
     align-items: center;
     gap: 5px;
+    margin-top: 5px;
 }
 
 .task-actions, .note-actions {
     display: flex;
     gap: 10px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.task-item:hover .task-actions,
+.note-item:hover .note-actions {
+    opacity: 1;
 }
 
 .edit-btn, .delete-btn {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 5px;
+    padding: 8px;
     font-size: 1.2em;
-    transition: transform 0.2s;
+    transition: all 0.2s;
+    color: #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
 }
 
 .edit-btn:hover, .delete-btn:hover {
     transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .edit-btn {
-    color: #4CAF50;
+    color: #64b5f6;
 }
 
 .delete-btn {
-    color: #f44336;
+    color: #ef5350;
+}
+
+.edit-btn i, .delete-btn i {
+    font-size: 1.2em;
 }
 
 /* Task Checkbox Style */
@@ -437,7 +622,67 @@ button:hover {
     }
     
     .task-actions, .note-actions {
-        width: 100%;
-        justify-content: flex-end;
+        opacity: 1;
     }
+    
+    .edit-btn, .delete-btn {
+        padding: 6px;
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.quote-display {
+    text-align: center;
+    margin-bottom: 20px;
+    
+}
+
+.quote-text {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.8);
+   
+    line-height: 1.4;
+}
+
+.quote-author {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+    text-align: right;
+}
+
+.date-item {
+    padding: 12px;
+    margin: 8px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.date-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(5px);
+}
+
+.date-item span {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.date-counts {
+    display: flex;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.date-count, .note-count {
+    color: #64b5f6;
+    font-weight: 600;
 }
