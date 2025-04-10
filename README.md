@@ -1,4 +1,4 @@
-# FS Project 2025
+# FS Project (PlanEase)
 
 A full-stack project for task and note management with a modern UI and robust backend.
 
